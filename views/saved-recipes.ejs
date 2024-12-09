@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Recipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .card h3 {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Saved Recipes</h1>
+    <div class="container">
+        <% savedRecipes.forEach(recipe => { %>
+            <div class="card">
+                <a href="/recpie/<%= recipe.recipeId %>">
+                    <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <h3><%= recipe.title %></h3>
+                </a>
+            </div>
+        <% }); %>
+    </div>
+</body>
+</html>

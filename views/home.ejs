@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        /* Navbar styles */
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        .navbar input[type="text"] {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            width: 250px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+            overflow: hidden;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card h3 {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar with search bar and saved recipes link -->
+    <div class="navbar">
+        <div>
+            <a href="/recpie">Home</a>
+            <a href="/recpie/saved">Saved Recipes</a>
+        </div>
+        <form action="/recpie" method="get" style="display: flex;">
+            <input type="text" name="query" placeholder="Search Recipes..." value="" />
+            <button type="submit" style="padding: 5px 10px; background-color: #5c6bc0; color: white; border: none; border-radius: 5px; margin-left: 4px;">Search</button>
+        </form>
+    </div>
+
+    <h1>Recipe Finder</h1>
+
+    <!-- Recipe cards display -->
+    <div class="container">
+        <% if (recipes && recipes.length > 0) { %>
+            <% recipes.forEach(recipe => { %>
+                <div class="card">
+                    <a href="/recpie/<%= recipe.id %>">
+                        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                        <h3><%= recipe.title %></h3>
+                    </a>
+                    <!-- Like button -->
+                    <form action="/recpie/like" method="post">
+                        <input type="hidden" name="recipeId" value="<%= recipe.id %>" />
+                        <input type="hidden" name="recipeTitle" value="<%= recipe.title %>" />
+                        <input type="hidden" name="recipeImage" value="<%= recipe.image %>" />
+                        <button type="submit" style="background-color: #f44336; color: white; border: none; padding: 10px; border-radius: 5px;">Like</button>
+                    </form>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p>No recipes found.</p>
+        <% } %>
+    </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Recipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>Saved Recipes</h1>
+
+    <!-- Show message if no saved recipes -->
+    <% if (message) { %>
+        <p><%= message %></p>
+    <% } else { %>
+        <!-- If saved recipes exist, show them in cards -->
+        <div class="container">
+            <% savedRecipes.forEach(recipe => { %>
+                <div class="card">
+                    <a href="/recpie/<%= recipe.recipeId %>">
+                        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+                        <h3><%= recipe.title %></h3>
+                    </a>
+                    <form action="/recpie/delete/<%= recipe.recipeId %>" method="POST">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= recipe.title %> - Recipe Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        .section {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="<%= recipe.image %>" alt="<%= recipe.title %>">
+        <h1><%= recipe.title %></h1>
+
+        <div class="section">
+            <h3>Ingredients</h3>
+            <ul>
+                <% recipe.ingredients.forEach(ingredient => { %>
+                    <li> <%= ingredient.original %> </li>
+                <% }); %>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h3>Instructions</h3>
+            <p><%= recipe.instructions || "No instructions available." %></p>
+        </div>
+
+        <div class="section">
+            <h3>Preparation Time</h3>
+            <p><%= recipe.preparationTime %> minutes</p>
+        </div>
+    </div>
+</body>
+</html>
